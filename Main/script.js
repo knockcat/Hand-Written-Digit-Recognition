@@ -2,7 +2,7 @@ import * as tf from '@tensorflow/tfjs';
 import * as THREE from 'three';
 import { TextBufferGeometry } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { Sketchpad } from './sketchpad_new.js';
+import { Sketchpad } from './sketchpad.js';
 import './style.css';
 
 /// prep
