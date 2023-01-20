@@ -14,6 +14,7 @@ let base_image = []
 
 // Load the model and Initialize respective layers of the model
 function loadModel() {
+    // loading model from file system
     model = tf.loadLayersModel("mnist_model_js/model.json");
     model.then((res) => {
         for (let i = 0; i < 15; i++) {
@@ -54,7 +55,13 @@ sk.onmousemove = function(event) {
     if (event.buttons == 1) {
         callmemaybe();
     }
+    // if (event.buttons == 2) {
+    //     callmemaybe();
+    // }
 }
+
+
+// for touchscreen devices
 sk.ontouchmove = function(event) {
     callmemaybe();
 }
@@ -97,13 +104,14 @@ function callmemaybe() {
         predict_multi(imageData)
     else
         predict_basic(imageData)
-        // console.log(imageData)
+    console.log(imageData)
 }
 
 
 function clear_canvas() {
     let ctx = sk.getContext('2d')
-    ctx.fillStyle = "#FFFFFF"
+        // ctx.fillStyle = "#87CEFA"
+    ctx.fillStyle = "#6495ED"
     ctx.fillRect(0, 0, 300, 300)
 }
 clear_canvas()
