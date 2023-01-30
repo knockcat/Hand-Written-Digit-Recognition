@@ -99,6 +99,8 @@ threeDbutt.onclick = () => {
 
 function callmemaybe() {
     let ctx = sk.getContext('2d');
+
+    // imagedata contains the data on the canvas
     let imageData = ctx.getImageData(0, 0, sk.width, sk.height);
     if (choice == 1)
         predict_multi(imageData)
@@ -110,8 +112,8 @@ function callmemaybe() {
 
 function clear_canvas() {
     let ctx = sk.getContext('2d')
-        // ctx.fillStyle = "#87CEFA"
-    ctx.fillStyle = "#6495ED"
+    ctx.fillStyle = "#87CEFA"
+        // ctx.fillStyle = "#6495ED"
     ctx.fillRect(0, 0, 300, 300)
 }
 clear_canvas()
@@ -184,6 +186,7 @@ function predict_multi(im) {
     images = []
         // Initialize a sandbox environment for the new tensors
     let tensor = tf.tidy(() => {
+        // covert image into tensor
         let ts = tf.browser.fromPixels(im, 1);
         // Invert the image
         ts = tf.cast(ts, 'float32');
@@ -196,6 +199,7 @@ function predict_multi(im) {
         ts = ts.expandDims(-1).expandDims()
         return ts;
     });
+
     tf.engine().startScope()
     for (let i = 1; i < 15; i++) {
         if (i == 3 || i == 6 || i == 7 || i == 11) continue // Ignore these layers
@@ -320,13 +324,19 @@ var myChart = new Chart(ctx, {
 });
 
 
+// clear chart  display too with clear button click
+document.getElementById("clr").addEventListener("click", function() {
+    myChart.data.datasets[0].data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    myChart.update();
+});
+
+
 function updateChart(vals) {
     // Updating the chart
     myChart.data.datasets[0].data = vals
     myChart.update()
 }
 updateChart([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-
 
 
 // Setting up a new group
